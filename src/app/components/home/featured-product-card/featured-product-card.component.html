@@ -1,0 +1,32 @@
+<div class="product-card">
+  <div class="image-container">
+    <img
+      nz-image
+      nzDisablePreview="true"
+      [nzSrc]="product.imageUrl"
+      width="128"
+      height="128"
+      alt="{{ product.name }}"
+    />
+  </div>
+
+  <span nz-typography>{{ product.name }}</span>
+
+  <div class="rating">
+    <nz-rate [ngModel]="product.ratingMedia" nzDisabled nzAllowHalf></nz-rate>
+    <span class="reviews">{{ product.totalRates | number }}</span>
+  </div>
+
+  <div class="price-wrapper">
+    @if (product.discountedPrice) {
+    <p class="discounted-price">
+      S/. {{ product.discountedPrice | number : "1.2-2" }}
+    </p>
+    <p class="original-price">
+      <del>S/. {{ product.price | number : "1.2-2" }}</del>
+    </p>
+    } @else {
+    <p class="price">S/. {{ product.price | number : "1.2-2" }}</p>
+    }
+  </div>
+</div>

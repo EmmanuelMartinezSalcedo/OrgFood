@@ -1,0 +1,29 @@
+<h2 nz-typography>Productos más elegidos</h2>
+<nz-carousel [nzEffect]="'scrollx'" [nzDots]="false">
+  @for (index of indexes; track index) {
+  <div nz-carousel-content>
+    <div class="card-container">
+      <app-featured-product-card
+        [product]="this.tempProducts[index]"
+        class="product-card"
+      ></app-featured-product-card>
+      <app-featured-product-card
+        [product]="tempProducts[index + 1]"
+        class="product-card"
+      ></app-featured-product-card>
+      <app-featured-product-card
+        [product]="tempProducts[index + 2]"
+        class="product-card"
+      ></app-featured-product-card>
+      <app-featured-product-card
+        [product]="tempProducts[index + 3]"
+        class="product-card"
+      ></app-featured-product-card>
+      <app-featured-product-card
+        [product]="tempProducts[index + 4]"
+        class="product-card"
+      ></app-featured-product-card>
+    </div>
+  </div>
+  }
+</nz-carousel>

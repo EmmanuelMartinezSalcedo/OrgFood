@@ -1,0 +1,97 @@
+.product-card {
+  padding: 16px;
+  max-width: 230px;
+  max-height: 280px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+
+  background-color: #ffffff; // fondo blanco
+  border-radius: 2rem; // bordes redondeados
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); // opcional, mejora visual
+
+  overflow: hidden; // evita que algo sobresalga de los bordes
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.product-card > span[nz-typography] {
+  max-width: 230px;
+  display: -webkit-box;
+  line-height: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
+  text-align: left;
+
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  line-clamp: 3;
+  box-orient: vertical;
+
+  min-height: calc(1.2rem * 3);
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2rem;
+  margin-bottom: 4px;
+
+  :deep(nz-rate) {
+    margin: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.rating .reviews {
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.price-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  flex-wrap: wrap; // Por si es necesario en pantallas pequeñas
+}
+
+.discounted-price {
+  color: red;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.original-price {
+  font-size: 0.95rem;
+  color: #999;
+  margin: 0;
+  del {
+    text-decoration: line-through;
+  }
+}
+
+.price {
+  margin: 0;
+  font-size: 1rem;
+}
