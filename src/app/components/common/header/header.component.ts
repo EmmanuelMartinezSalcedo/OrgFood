@@ -1,4 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { ResponsiveService } from '../../../services/responsive.service';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -8,6 +11,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 @Component({
   selector: 'app-header',
   imports: [
+    CommonModule,
     NzLayoutModule,
     NzMenuModule,
     NzIconModule,
@@ -17,22 +21,29 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
   templateUrl: './header.component.html',
   styleUrl: './header.component.less',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed: boolean = false;
   isMobile: boolean = false;
+  screenSize: string = '';
+  private subscription: Subscription = new Subscription();
 
-  constructor() {}
+  constructor(public responsiveService: ResponsiveService) {}
 
-  ngOnInit() {
-    this.checkScreenSize();
+  ngOnInit(): void {
+    this.subscription = this.responsiveService.screenSize$.subscribe((size) => {
+      this.screenSize = size;
+      this.isMobile = this.responsiveService.isSmallScreen();
+      console.log('Current screen size:', size, 'isMobile:', this.isMobile);
+    });
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.checkScreenSize();
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
-  checkScreenSize() {
-    this.isMobile = window.innerWidth <= 1024;
+  toggleCollapse(): void {
+    this.isCollapsed = !this.isCollapsed;
   }
 }

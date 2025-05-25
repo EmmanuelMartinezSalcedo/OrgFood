@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FeaturedProduct } from '../../../domain/interfaces/featured-product.interface';
 import { FeaturedProductCardComponent } from '../featured-product-card/featured-product-card.component';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -39,6 +39,13 @@ export class FeaturedProductsComponent implements OnInit {
     'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/tra/tra00014/m/48.jpg',
     'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/gai/gai15175/m/44.jpg',
   ];
+
+  is4K: boolean = false;
+  isLaptopL: boolean = false;
+  isLaptop: boolean = false;
+  isTablet: boolean = false;
+  isMobileL: boolean = false;
+  cardsPerView: number = 5;
 
   constructor() {}
 
@@ -137,6 +144,38 @@ export class FeaturedProductsComponent implements OnInit {
       },
     ];
 
-    console.log(this.tempProducts);
+    this.checkScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize();
+  }
+  checkScreenSize() {
+    const width = window.innerWidth;
+    if (width <= 425) {
+      this.isMobileL = true;
+      this.cardsPerView = 1;
+    } else if (width <= 768) {
+      this.isTablet = true;
+      this.cardsPerView = 2;
+    } else if (width <= 1024) {
+      this.isLaptop = true;
+      this.cardsPerView = 3;
+    } else if (width <= 1440) {
+      this.isLaptopL = true;
+      this.cardsPerView = 4;
+    } else {
+      this.is4K = true;
+      this.cardsPerView = 5;
+    }
+    this.updateIndexes();
+  }
+
+  updateIndexes() {
+    this.indexes = [];
+    for (let i = 0; i < this.tempProducts.length; i += this.cardsPerView) {
+      this.indexes.push(i);
+    }
   }
 }
