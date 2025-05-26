@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FeaturedProduct } from '../../../domain/interfaces/featured-product.interface';
 import { FeaturedProductCardComponent } from '../featured-product-card/featured-product-card.component';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -7,6 +7,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { ResponsiveService } from '../../../services/responsive.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-featured-products',
@@ -22,32 +24,15 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
   templateUrl: './featured-products.component.html',
   styleUrl: './featured-products.component.less',
 })
-export class FeaturedProductsComponent implements OnInit {
+export class FeaturedProductsComponent implements OnInit, OnDestroy {
   indexes: number[] = [0, 5];
 
   tempProducts: FeaturedProduct[] = [];
 
-  imageUrls: string[] = [
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/him/him06043/m/85.jpg',
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/gai/gai14580/m/50.jpg',
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/rae/rae00806/m/65.jpg',
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/mbe/mbe01149/m/31.jpg',
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/cgn/cgn01718/m/52.jpg',
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/sog/sog18608/m/42.jpg',
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/wsb/wsb33170/m/36.jpg',
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/sre/sre01172/m/51.jpg',
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/tra/tra00014/m/48.jpg',
-    'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/gai/gai15175/m/44.jpg',
-  ];
-
-  is4K: boolean = false;
-  isLaptopL: boolean = false;
-  isLaptop: boolean = false;
-  isTablet: boolean = false;
-  isMobileL: boolean = false;
   cardsPerView: number = 5;
+  private subscription: Subscription = new Subscription();
 
-  constructor() {}
+  constructor(private responsiveService: ResponsiveService) {}
 
   ngOnInit(): void {
     this.tempProducts = [
@@ -144,29 +129,21 @@ export class FeaturedProductsComponent implements OnInit {
       },
     ];
 
-    this.checkScreenSize();
+    this.subscription = this.responsiveService.screenSize$.subscribe(() => {
+      this.updateCardsPerView();
+    });
+
+    this.updateCardsPerView();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.checkScreenSize();
-  }
-  checkScreenSize() {
-    const width = window.innerWidth;
-    if (width <= 425) {
-      this.isMobileL = true;
+  private updateCardsPerView(): void {
+    if (this.responsiveService.isSmallScreen()) {
       this.cardsPerView = 1;
-    } else if (width <= 768) {
-      this.isTablet = true;
+    } else if (this.responsiveService.isMediumScreen()) {
       this.cardsPerView = 2;
-    } else if (width <= 1024) {
-      this.isLaptop = true;
+    } else if (this.responsiveService.isExtraLargeScreen()) {
       this.cardsPerView = 3;
-    } else if (width <= 1440) {
-      this.isLaptopL = true;
-      this.cardsPerView = 4;
     } else {
-      this.is4K = true;
       this.cardsPerView = 5;
     }
     this.updateIndexes();
@@ -176,6 +153,12 @@ export class FeaturedProductsComponent implements OnInit {
     this.indexes = [];
     for (let i = 0; i < this.tempProducts.length; i += this.cardsPerView) {
       this.indexes.push(i);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

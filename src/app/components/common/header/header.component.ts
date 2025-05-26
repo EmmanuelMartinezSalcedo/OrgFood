@@ -32,8 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.responsiveService.screenSize$.subscribe((size) => {
       this.screenSize = size;
-      this.isMobile = this.responsiveService.isSmallScreen();
-      console.log('Current screen size:', size, 'isMobile:', this.isMobile);
+      this.isMobile = this.responsiveService.isLargeScreen();
     });
   }
 
