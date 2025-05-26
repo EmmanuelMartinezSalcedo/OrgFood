@@ -1,1 +1,11 @@
-<p>featured-producers works!</p>
+<div nz-row [nzJustify]="'space-around'" [nzAlign]="'middle'">
+  @for (producer of tempProducers; track $index) {
+  <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
+    <div class="producer-card-wrapper">
+      <app-featured-producer-card
+        [producer]="producer"
+      ></app-featured-producer-card>
+    </div>
+  </div>
+  }
+</div>

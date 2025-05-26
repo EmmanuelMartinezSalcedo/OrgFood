@@ -1,4 +1,3 @@
-import { SafeUrl } from '@angular/platform-browser';
 export interface FeaturedProduct {
   id: number;
   imageUrl: string;

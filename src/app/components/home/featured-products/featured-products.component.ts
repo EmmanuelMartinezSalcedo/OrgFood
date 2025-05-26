@@ -1,10 +1,6 @@
-import { FormsModule } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FeaturedProduct } from '../../../domain/interfaces/featured-product.interface';
 import { FeaturedProductCardComponent } from '../featured-product-card/featured-product-card.component';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { ResponsiveService } from '../../../services/responsive.service';
@@ -12,23 +8,13 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-featured-products',
-  imports: [
-    FormsModule,
-    FeaturedProductCardComponent,
-    NzLayoutModule,
-    NzInputModule,
-    NzIconModule,
-    NzCarouselModule,
-    NzTypographyModule,
-  ],
+  imports: [FeaturedProductCardComponent, NzCarouselModule, NzTypographyModule],
   templateUrl: './featured-products.component.html',
   styleUrl: './featured-products.component.less',
 })
 export class FeaturedProductsComponent implements OnInit, OnDestroy {
   indexes: number[] = [0, 5];
-
   tempProducts: FeaturedProduct[] = [];
-
   cardsPerView: number = 5;
   private subscription: Subscription = new Subscription();
 
@@ -136,6 +122,12 @@ export class FeaturedProductsComponent implements OnInit, OnDestroy {
     this.updateCardsPerView();
   }
 
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   private updateCardsPerView(): void {
     if (this.responsiveService.isSmallScreen()) {
       this.cardsPerView = 1;
@@ -153,12 +145,6 @@ export class FeaturedProductsComponent implements OnInit, OnDestroy {
     this.indexes = [];
     for (let i = 0; i < this.tempProducts.length; i += this.cardsPerView) {
       this.indexes.push(i);
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
     }
   }
 }
