@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ResponsiveService } from '../../../services/responsive.service';
+import { SidebarService } from '../../../services/sidebar.service';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -23,16 +24,23 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed: boolean = false;
-  isMobile: boolean = false;
+  isMedium: boolean = false;
   screenSize: string = '';
   private subscription: Subscription = new Subscription();
 
-  constructor(public responsiveService: ResponsiveService) {}
+  constructor(
+    private responsiveService: ResponsiveService,
+    private sidebarService: SidebarService
+  ) {}
 
   ngOnInit(): void {
     this.subscription = this.responsiveService.screenSize$.subscribe((size) => {
-      this.screenSize = size;
-      this.isMobile = this.responsiveService.isLargeScreen();
+      const wasMobile = this.isMedium;
+      this.isMedium = this.responsiveService.isMediumScreen();
+
+      if (wasMobile && !this.isMedium) {
+        this.sidebarService.hideSidebar();
+      }
     });
   }
 
@@ -42,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleCollapse(): void {
-    this.isCollapsed = !this.isCollapsed;
+  toggleSidebar(): void {
+    this.sidebarService.toggleSidebar();
   }
 }

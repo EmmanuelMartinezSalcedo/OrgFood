@@ -1,0 +1,58 @@
+<h2 nz-typography class="main-title">
+  Somos productores, proveedores y consumidores de productos orgánicos
+</h2>
+<div class="about-container">
+  <div nz-row [nzGutter]="[24, 24]">
+    <ng-template #textContent>
+      <div class="text-section">
+        <h3 nz-typography>En qué creemos</h3>
+        <p nz-typography>
+          Creemos en un futuro donde la alimentación saludable y sustentable sea
+          accesible para todos. Nos comprometemos a conectar directamente a
+          productores orgánicos locales con consumidores conscientes.
+        </p>
+      </div>
+      <div class="text-section">
+        <h3 nz-typography>Quiénes somos</h3>
+        <p nz-typography>
+          Somos una plataforma innovadora que revoluciona la forma en que
+          accedes a productos orgánicos certificados. Facilitamos la entrega
+          directa desde el campo hasta tu hogar, garantizando la frescura y
+          calidad que mereces.
+        </p>
+      </div>
+      <div class="text-section">
+        <h3 nz-typography>Nuestra misión</h3>
+        <p nz-typography>
+          Nuestra misión es promover un estilo de vida saludable mientras
+          apoyamos a pequeños productores locales y contribuimos a un futuro más
+          sostenible.
+        </p>
+      </div>
+    </ng-template>
+
+    @if (!isMediumScreen) {
+    <div nz-col [nzSpan]="8">
+      <img nz-image [nzSrc]="imageUrl" [alt]="imageAlt" />
+    </div>
+    <div nz-col [nzSpan]="16">
+      <div class="text-content">
+        <ng-container [ngTemplateOutlet]="textContent"></ng-container>
+      </div>
+    </div>
+    } @else {
+    <div nz-col [nzSpan]="24">
+      <img nz-image [nzSrc]="imageUrl" [alt]="imageAlt" />
+      <div class="text-content text-centered">
+        <ng-container [ngTemplateOutlet]="textContent"></ng-container>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="button-container">
+    <button nz-button nzType="primary" nzSize="large">
+      <span class="btn-text">Conoce más</span>
+    </button>
+  </div>
+</div>

@@ -1,1 +1,26 @@
-<p>sidebar works!</p>
+@if (isVisible) {
+<nz-sider class="sidebar">
+  <ul nz-menu nzMode="inline" class="sidebar-menu">
+    <li nz-menu-item>
+      <span nz-icon nzType="appstore" nzTheme="outline"></span>
+      <span>Categorías</span>
+    </li>
+    <li nz-menu-item>
+      <span nz-icon nzType="rise" nzTheme="outline"></span>
+      <span>Más vendidos</span>
+    </li>
+    <li nz-menu-item>
+      <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+      <span>¿Quiénes somos?</span>
+    </li>
+    <li nz-menu-item>
+      <span nz-icon nzType="user" nzTheme="outline"></span>
+      <span>Mi perfil</span>
+    </li>
+    <li nz-menu-item>
+      <span nz-icon nzType="shopping-cart" nzTheme="outline"></span>
+      <span>Carrito</span>
+    </li>
+  </ul>
+</nz-sider>
+}

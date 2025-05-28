@@ -1,8 +1,14 @@
 <nz-header class="header">
-  @if (isMobile) {
+  @if (isMedium) {
   <h1 class="logo">OrgFood</h1>
   <div class="nav-buttons">
-    <button nz-button nzType="link" nzSize="large" nzShape="circle">
+    <button
+      nz-button
+      nzType="link"
+      nzSize="large"
+      nzShape="circle"
+      (click)="toggleSidebar()"
+    >
       <nz-icon nzType="menu" nzTheme="outline" />
     </button>
   </div>
