@@ -3,9 +3,35 @@
   width: 100%;
 }
 
-.producer-card-wrapper {
+h2[nz-typography] {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.producers-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card-container {
+  padding: 8px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 8px;
+}
+
+.single-column {
+  width: auto;
+
+  .card-container {
+    padding: 0;
+  }
+
+  ::ng-deep app-featured-producer-card {
+    width: auto;
+
+    :host {
+      margin: 0;
+      padding: 0;
+    }
+  }
 }

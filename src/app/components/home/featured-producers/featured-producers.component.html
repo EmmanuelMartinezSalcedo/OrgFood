@@ -1,10 +1,14 @@
-<div nz-row [nzJustify]="'space-around'" [nzAlign]="'middle'">
-  @for (producer of tempProducers; track $index) {
-  <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
-    <div class="producer-card-wrapper">
-      <app-featured-producer-card
-        [producer]="producer"
-      ></app-featured-producer-card>
+<h2 nz-typography>Mejores productores</h2>
+<div
+  class="producers-container"
+  nz-row
+  [nzJustify]="'center'"
+  [nzAlign]="'middle'"
+>
+  @for (producer of tempProducers; track producer.id) {
+  <div nz-col [nzSpan]="span" [class.single-column]="span === 24">
+    <div class="card-container">
+      <app-featured-producer-card [producer]="producer" />
     </div>
   </div>
   }
