@@ -1,0 +1,84 @@
+<div class="flex flex-col-reverse md:flex-row items-start">
+  <!-- Left Column -->
+  <div class="w-full md:w-1/2 flex flex-col gap-4 p-6">
+    <div class="flex gap-4 flex-wrap">
+      @for (tag of product.tags; track $index) {
+      <div class="badge badge-info">{{tag}}</div>
+      }
+      <div class="badge badge-outline badge-primary">{{product.category}}</div>
+
+      <span>|</span>
+      <span>SKU: 1234567890</span>
+    </div>
+
+    <h1 class="text-3xl">
+      <strong>{{product.name}}</strong>
+    </h1>
+    <div class="divider"></div>
+
+    @if (product.discount) {
+    <div class="flex items-baseline gap-2">
+      <h3 class="text-sm primary text-error line-through">
+        {{ product.price | currency:'USD':'symbol':'1.2-2':'en-US' }}
+      </h3>
+      <h3 class="text-xl font-semibold text-primary">
+        {{ discountedPrice | currency:'USD':'symbol':'1.2-2':'en-US' }}
+      </h3>
+    </div>
+    } @else {
+    <h3 class="text-xl font-semibold text-primary">
+      {{ product.price | currency:'USD':'symbol':'1.2-2':'en-US' }}
+    </h3>
+    }
+
+    <div class="flex gap-4">
+      <div class="join">
+        <button class="btn join-item" (click)="decreaseQuantity()">
+          <i-lucide [img]="minusIcon" />
+        </button>
+        <input
+          type="number"
+          class="input join-item appearance-none"
+          min="1"
+          [value]="quantity"
+          (input)="quantity = $any($event.target).valueAsNumber"
+        />
+        <button class="btn join-item" (click)="increaseQuantity()">
+          <i-lucide [img]="plusIcon" />
+        </button>
+      </div>
+      <button class="btn btn-secondary">Add to cart</button>
+    </div>
+
+    <div class="flex gap-4">
+      <button class="btn btn-ghost btn-accent">
+        Add to favorites
+        <i-lucide [img]="heartIcon" />
+      </button>
+      <button class="btn btn-ghost btn-accent">
+        Share
+        <i-lucide [img]="shareIcon" />
+      </button>
+    </div>
+
+    <app-rating [rate]="product.averageRate" />
+
+    <div class="hidden lg:block">
+      <app-comments />
+    </div>
+  </div>
+
+  <!-- Left Column -->
+  <div class="w-full md:w-1/2 p-6">
+    <img
+      [src]="product.image"
+      class="w-full object-cover rounded-xl"
+      [alt]="product.name"
+      #productImage
+    />
+  </div>
+</div>
+
+<div class="block lg:hidden p-6">
+  <app-comments />
+</div>
