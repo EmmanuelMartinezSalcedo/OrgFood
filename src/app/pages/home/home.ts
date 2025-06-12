@@ -4,10 +4,18 @@ import { FeaturedProducts } from '../../components/home/featured-products/featur
 import { FeaturedProducers } from '../../components/home/featured-producers/featured-producers';
 import { About } from '../../components/home/about/about';
 import { NewBundles } from '../../components/home/new-bundles/new-bundles';
+import { Footer } from '../../components/common/footer/footer';
 
 @Component({
   selector: 'app-home',
-  imports: [Header, FeaturedProducts, FeaturedProducers, About, NewBundles],
+  imports: [
+    Header,
+    FeaturedProducts,
+    FeaturedProducers,
+    About,
+    NewBundles,
+    Footer,
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { FeaturedProduct } from '../../../interfaces/product';
 import { FeaturedProductCard } from '../featured-product-card/featured-product-card';
 import {
   LucideAngularModule,

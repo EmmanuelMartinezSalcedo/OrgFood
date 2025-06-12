@@ -1,0 +1,65 @@
+<div class="flex items-center justify-center min-h-screen">
+  <div class="flex flex-col md:flex-row gap-8 items-start w-full max-w-6xl">
+    <!-- Tarjeta de datos de perfil -->
+    <div class="card bg-base-100 w-full md:w-2/3 shadow-sm">
+      <div
+        class="card-body grid grid-cols-1 [@media(min-width:426px)]:grid-cols-2 gap-x-8 gap-y-4"
+      >
+        <!-- Avatar -->
+        <div
+          class="col-span-1 [@media(min-width:425px)]:col-span-2 flex items-center gap-4 mb-4"
+        >
+          <div class="avatar">
+            <div class="w-24 rounded">
+              <img [src]="me.profilePicture" [alt]="me.name" />
+            </div>
+          </div>
+          <div>
+            <h2 class="card-title text-info">Name</h2>
+            <p>{{ me.name }}</p>
+            <h2 class="card-title text-info">Lastname</h2>
+            <p>{{ me.lastname }}</p>
+          </div>
+        </div>
+
+        <!-- Resto de datos -->
+        <div>
+          <h2 class="card-title text-info">Email</h2>
+          <p>{{ me.email }}</p>
+        </div>
+        <div>
+          <h2 class="card-title text-info">Gender</h2>
+          <p>{{ me.gender }}</p>
+        </div>
+        <div>
+          <h2 class="card-title text-info">Birthdate</h2>
+          <p>{{ me.birthdate | date: 'MM/dd/yyyy' }}</p>
+        </div>
+        <div>
+          <h2 class="card-title text-info">Phone</h2>
+          <p>{{ me.phone }}</p>
+        </div>
+      </div>
+
+      <!-- Botón Edit fuera del grid -->
+      <div class="px-6 pb-6">
+        <button class="btn btn-primary w-full">Edit</button>
+      </div>
+    </div>
+
+    <!-- Tarjeta de newsletter -->
+    <div class="card bg-base-100 w-full md:w-1/3 shadow-sm self-center">
+      <div class="card-body">
+        <h2 class="card-title text-accent">Newsletter subscription</h2>
+        <div class="flex items-center justify-between mt-4">
+          <p class="text-sm">Send me news and updates via email</p>
+          <input
+            type="checkbox"
+            checked="checked"
+            class="checkbox checkbox-accent"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

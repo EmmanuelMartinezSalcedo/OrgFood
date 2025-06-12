@@ -35,22 +35,7 @@
     }
 
     <div class="flex gap-4">
-      <div class="join">
-        <button class="btn join-item" (click)="decreaseQuantity()">
-          <i-lucide [img]="minusIcon" />
-        </button>
-        <input
-          type="number"
-          class="input join-item appearance-none"
-          min="1"
-          [value]="quantity"
-          (input)="quantity = $any($event.target).valueAsNumber"
-        />
-        <button class="btn join-item" (click)="increaseQuantity()">
-          <i-lucide [img]="plusIcon" />
-        </button>
-      </div>
-      <button class="btn btn-secondary">Add to cart</button>
+      <button class="btn btn-secondary">Subscribe</button>
     </div>
 
     <div class="flex gap-4">

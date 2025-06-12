@@ -13,11 +13,11 @@ import {
   LucideIconData,
 } from 'lucide-angular';
 import { MenuItem } from '../../../interfaces/menu-item';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [NgClass, ReactiveFormsModule, LucideAngularModule],
+  imports: [NgClass, ReactiveFormsModule, LucideAngularModule, RouterModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -38,18 +38,22 @@ export class Header {
       {
         name: 'Shop',
         icon: Store,
+        route: 'shop',
       },
       {
         name: 'Favorites',
         icon: Heart,
+        route: 'favorites',
       },
       {
         name: 'About',
         icon: Info,
+        route: 'about',
       },
       {
         name: 'Profile',
         icon: User,
+        route: 'profile',
       },
       {
         name: 'My cart',

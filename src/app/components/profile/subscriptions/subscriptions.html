@@ -1,0 +1,29 @@
+<div class="flex items-center justify-center min-h-screen">
+  <ul class="list bg-base-100 rounded-box shadow-md p-4 w-full">
+    @for (address of me.addresses; track address) { @if (address.subscriptions
+    != undefined) {
+    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+      Active subscriptions at {{ address | address }}
+    </li>
+    @for (subscription of address.subscriptions; track subscription) {
+    <li
+      class="list-row flex flex-col md:flex-row md:items-center gap-2 md:gap-4"
+    >
+      <div>
+        <div>{{ subscription.bundle.name }}</div>
+        <div class="text-xs uppercase font-semibold opacity-60">
+          {{ subscription.bundle.price | currency:'USD':'symbol':'1.2-2':'en-US'
+          }}
+        </div>
+      </div>
+
+      <div class="text-xs font-semibold opacity-60 md:ml-auto">
+        {{ `Renews the ${subscription.delivery}th of every month` }}
+      </div>
+
+      <button class="btn btn-accent w-full md:w-fit">Manage</button>
+      <button class="btn btn-error w-full md:w-fit">Cancel</button>
+    </li>
+    } } }
+  </ul>
+</div>

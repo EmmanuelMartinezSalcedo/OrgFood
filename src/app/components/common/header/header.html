@@ -37,7 +37,10 @@
         <ul class="menu menu-horizontal px-1 hidden md:flex">
           @for (item of menuItems; track item) {
           <li>
-            <a class="flex items-center gap-2">
+            <a
+              class="flex items-center gap-2"
+              [routerLink]="['/' + item.route]"
+            >
               <i-lucide [img]="item.icon" />
               <span>{{ item.name }}</span>
             </a>
@@ -56,11 +59,13 @@
     ></label>
     <ul class="menu bg-base-200 min-h-full w-80 p-4">
       <li>
-        <a class="btn btn-ghost text-xl md:hidden">OrgFood</a>
+        <a class="btn btn-ghost text-xl md:hidden" (click)="goHome()"
+          >OrgFood</a
+        >
       </li>
       @for (item of menuItems; track item) {
       <li>
-        <a class="flex items-center gap-2">
+        <a class="flex items-center gap-2" [routerLink]="['/' + item.route]">
           <i-lucide [img]="item.icon" />
           <span>{{ item.name }}</span>
         </a>
