@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { bundles } from '../../../constants/mocks/bundles';
 import { Bundle } from '../../../interfaces/bundle';
 import { NewBundleCard } from '../new-bundle-card/new-bundle-card';
+import { BundleService } from '../../../services/bundle-service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-new-bundles',
@@ -10,9 +11,25 @@ import { NewBundleCard } from '../new-bundle-card/new-bundle-card';
   styleUrl: './new-bundles.css',
 })
 export class NewBundles {
-  newBundles: Bundle[];
+  newBundles: (Bundle & { imageUrl: string })[] = [];
 
-  constructor() {
-    this.newBundles = [bundles[0], bundles[1], bundles[0]];
+  constructor(
+    private bundleService: BundleService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {
+    this.bundleService.getLatestBundles().subscribe({
+      next: (bundles) => {
+        this.newBundles = bundles.map((bundle) => ({
+          ...bundle,
+          imageUrl: this.bundleService.getBundleImageUrl(bundle.id),
+        }));
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error loading bundles:', err);
+      },
+    });
   }
 }

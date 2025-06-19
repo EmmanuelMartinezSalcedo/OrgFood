@@ -12,6 +12,7 @@ import {
   LucideIconData,
 } from 'lucide-angular';
 import { Router } from '@angular/router';
+import { User as UserService } from '../../services/user';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,11 @@ export class Login {
   passwordIcon: LucideIconData;
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService
+  ) {
     this.userIcon = User;
     this.passwordIcon = KeyRound;
 
@@ -35,11 +40,22 @@ export class Login {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      sessionStorage.setItem('loggedIn', 'true');
-      this.router.navigate(['/']);
-    } else {
+    if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      return;
     }
+
+    this.userService.login(this.loginForm.value).subscribe({
+      next: (response) => {
+        document.cookie = `token=${response.accessToken}; max-age=3600; path=/`;
+
+        sessionStorage.setItem('userId', response.userId);
+
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        alert('Login failed: ' + (err?.error?.message || 'Unknown error'));
+      },
+    });
   }
 }

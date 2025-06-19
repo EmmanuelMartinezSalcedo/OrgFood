@@ -1,7 +1,7 @@
-import { User } from '../../interfaces/user';
+import { UserMock } from './users';
 import { addresses } from './addresses';
 
-export const myself: User = {
+export const myself: UserMock = {
   id: '4',
   name: 'Daniel',
   lastname: 'Diaz',

@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { FeaturedProducer } from '../../../interfaces/producer';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FeaturedProducerCard } from '../featured-producer-card/featured-producer-card';
-import { producers } from '../../../constants/mocks/producers';
+import { BrandDto, BrandService } from '../../../services/brand-service';
 
 @Component({
   selector: 'app-featured-producers',
@@ -9,19 +8,23 @@ import { producers } from '../../../constants/mocks/producers';
   templateUrl: './featured-producers.html',
   styleUrl: './featured-producers.css',
 })
-export class FeaturedProducers {
-  featuredProducersTemplate: FeaturedProducer[];
+export class FeaturedProducers implements OnInit {
+  featuredProducersTemplate: BrandDto[] = [];
 
-  constructor() {
-    this.featuredProducersTemplate = [
-      producers[3],
-      producers[1],
-      producers[2],
-      producers[0],
-      producers[3],
-      producers[2],
-      producers[0],
-      producers[1],
-    ];
+  constructor(
+    private brandService: BrandService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.brandService.getLatestBrands().subscribe({
+      next: (brands) => {
+        this.featuredProducersTemplate = brands;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error fetching brands:', err);
+      },
+    });
   }
 }

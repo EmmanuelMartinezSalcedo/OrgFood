@@ -3,7 +3,6 @@
     <h2 class="text-2xl font-bold text-center mb-6">Welcome Back</h2>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
-      <!-- Email fieldset -->
       <fieldset class="fieldset">
         <legend class="fieldset-legend mb-1 text-gray-500">
           Email address
@@ -26,7 +25,6 @@
         }
       </fieldset>
 
-      <!-- Password fieldset -->
       <fieldset class="fieldset">
         <legend class="fieldset-legend mb-1 text-gray-500">Password</legend>
         <label
@@ -47,10 +45,8 @@
         }
       </fieldset>
 
-      <!-- Submit button -->
       <button class="btn btn-primary w-full" type="submit">Login</button>
 
-      <!-- Additional link -->
       <p class="text-center text-sm mt-4 text-gray-500">
         Don't have an account?
         <a href="/signup" class="text-primary hover:underline">Sign up</a>

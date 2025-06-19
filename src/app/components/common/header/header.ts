@@ -36,14 +36,9 @@ export class Header {
 
     this.menuItems = [
       {
-        name: 'Shop',
+        name: 'All bundles',
         icon: Store,
         route: 'shop',
-      },
-      {
-        name: 'Favorites',
-        icon: Heart,
-        route: 'favorites',
       },
       {
         name: 'About',
@@ -58,6 +53,7 @@ export class Header {
       {
         name: 'My cart',
         icon: ShoppingCart,
+        route: 'cart',
       },
     ];
     this.searchIcon = Search;

@@ -1,7 +1,7 @@
-import { User } from './user';
+import { UserMock } from './../constants/mocks/users';
 export interface Comment {
   id: string;
   content: string;
   date: Date;
-  user: User;
+  user: UserMock;
 }

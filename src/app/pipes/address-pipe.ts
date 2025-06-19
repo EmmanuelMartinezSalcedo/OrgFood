@@ -1,21 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Address } from '../interfaces/address';
+import { AddressDto } from '../services/address';
 
 @Pipe({
   name: 'address',
+  standalone: true,
 })
 export class AddressPipe implements PipeTransform {
-  transform(address: Address): string {
+  transform(address: AddressDto): string {
     if (!address) return '';
 
     const parts = [
       address.number ? `${address.number}` : '',
-      address.line1,
-      address.line2,
+      address.line_1,
+      address.line_2,
       address.city,
       address.state,
       address.country,
-    ].filter(Boolean); // Elimina los elementos vacíos o undefined
+    ].filter(Boolean);
 
     return parts.join(', ');
   }

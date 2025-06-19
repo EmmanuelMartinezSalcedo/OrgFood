@@ -43,7 +43,7 @@ export class Menu {
         icon: ShoppingBasket,
         route: 'orders',
       },
-      { name: 'Pay methods', icon: CreditCard, route: 'paymethods' },
+      { name: 'Pay methods', icon: CreditCard, route: 'payment' },
       {
         name: 'Log out',
         icon: LogOut,

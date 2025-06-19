@@ -1,15 +1,10 @@
-import { SafeUrl } from '@angular/platform-browser';
-import { Address } from './address';
-
-export interface User {
+export interface UserDto {
   id: string;
   name: string;
   lastname: string;
-  profilePicture: SafeUrl;
   email: string;
-  password: string;
-  gender: 'Male' | 'Female';
-  birthdate: Date;
-  phone: number;
-  addresses?: Address[];
+  gender: 'Male' | 'Female' | 'Other';
+  birthdate: Date | null;
+  phone_number: string | null;
+  newsletter_subscribed: boolean;
 }

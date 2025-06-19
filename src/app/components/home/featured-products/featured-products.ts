@@ -1,13 +1,14 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+// src/app/components/featured-products/featured-products.ts
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { FeaturedProductCard } from '../featured-product-card/featured-product-card';
 import {
   LucideAngularModule,
   ChevronLeft,
   ChevronRight,
   LucideIconData,
 } from 'lucide-angular';
-import { products } from '../../../constants/mocks/products';
+import { FeaturedProductCard } from '../featured-product-card/featured-product-card';
+import { ProductService, ProductDto } from '../../../services/product-service';
 
 @Component({
   selector: 'app-featured-products',
@@ -15,19 +16,28 @@ import { products } from '../../../constants/mocks/products';
   templateUrl: './featured-products.html',
   styleUrl: './featured-products.css',
 })
-export class FeaturedProducts {
-  leftIcon: LucideIconData;
-  rightIcon: LucideIconData;
+export class FeaturedProducts implements OnInit {
+  leftIcon: LucideIconData = ChevronLeft;
+  rightIcon: LucideIconData = ChevronRight;
 
-  itemsPerGroup: number;
+  itemsPerGroup = 3;
+  products: ProductDto[] = [];
+
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private cdr: ChangeDetectorRef
-  ) {
-    this.leftIcon = ChevronLeft;
-    this.rightIcon = ChevronRight;
+    private cdr: ChangeDetectorRef,
+    private productService: ProductService
+  ) {}
 
-    this.itemsPerGroup = 3;
+  ngOnInit() {
+    this.productService.getAll().subscribe({
+      next: (data) => {
+        this.products = data.slice(0, 8);
+        this.cdr.markForCheck();
+      },
+      error: (err) => console.error('Failed to load products:', err),
+    });
+
     this.breakpointObserver
       .observe([
         '(max-width: 740px)',
@@ -48,11 +58,11 @@ export class FeaturedProducts {
       });
   }
 
-  featuredProductsInGroups(groupSize: number) {
-    const groups = [];
+  featuredProductsInGroups(groupSize: number): ProductDto[][] {
+    const groups: ProductDto[][] = [];
 
-    for (let i = 0; i < products.length; i += groupSize) {
-      groups.push(products.slice(i, i + groupSize));
+    for (let i = 0; i < this.products.length; i += groupSize) {
+      groups.push(this.products.slice(i, i + groupSize));
     }
 
     return groups;

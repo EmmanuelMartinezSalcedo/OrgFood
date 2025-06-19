@@ -12,6 +12,10 @@ import { Mycart } from './pages/mycart/mycart';
 import { About } from './pages/about/about';
 import { Login } from './pages/login/login';
 import { AuthGuard } from './guards/auth-guard';
+import { Signup } from './pages/signup/signup';
+import { Payment } from './components/profile/payment/payment';
+import { Allbundles } from './pages/allbundles/allbundles';
+import { Cart } from './pages/cart/cart';
 
 export const routes: Routes = [
   {
@@ -39,6 +43,7 @@ export const routes: Routes = [
       { path: 'subscriptions', component: Subscriptions },
       { path: 'orders', component: Orders },
       { path: '', redirectTo: 'me', pathMatch: 'full' },
+      { path: 'payment', component: Payment },
     ],
   },
   {
@@ -59,6 +64,18 @@ export const routes: Routes = [
   {
     path: 'login',
     component: Login,
+  },
+  {
+    path: 'signup',
+    component: Signup,
+  },
+  {
+    path: 'shop',
+    component: Allbundles,
+  },
+  {
+    path: 'cart',
+    component: Cart,
   },
   {
     path: '**',

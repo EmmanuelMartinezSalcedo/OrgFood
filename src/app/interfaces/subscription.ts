@@ -1,7 +1,7 @@
-import { Bundle } from './bundle';
+import { BundleMock } from '../constants/mocks/bundles';
 
 export interface Subscription {
   id: string;
-  bundle: Bundle;
+  bundle: BundleMock;
   delivery: number;
 }

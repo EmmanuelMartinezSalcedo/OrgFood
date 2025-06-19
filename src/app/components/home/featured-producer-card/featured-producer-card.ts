@@ -1,6 +1,6 @@
 import { Component, input, InputSignal } from '@angular/core';
-import { FeaturedProducer } from '../../../interfaces/producer';
 import { Router } from '@angular/router';
+import { BrandDto, BrandService } from '../../../services/brand-service';
 
 @Component({
   selector: 'app-featured-producer-card',
@@ -9,10 +9,14 @@ import { Router } from '@angular/router';
   styleUrl: './featured-producer-card.css',
 })
 export class FeaturedProducerCard {
-  producer: InputSignal<FeaturedProducer> = input.required<FeaturedProducer>();
+  producer: InputSignal<BrandDto> = input.required<BrandDto>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private brandService: BrandService) {}
   goToProducer() {
     this.router.navigate(['/producer', this.producer().id]);
+  }
+
+  get imageUrl(): string {
+    return this.brandService.getBrandImageUrl(this.producer().id);
   }
 }

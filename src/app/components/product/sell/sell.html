@@ -2,13 +2,7 @@
   <!-- Left Column -->
   <div class="w-full md:w-1/2 flex flex-col gap-4 p-6">
     <div class="flex gap-4 flex-wrap">
-      @for (tag of product.tags; track $index) {
-      <div class="badge badge-info">{{tag}}</div>
-      }
-      <div class="badge badge-outline badge-primary">{{product.category}}</div>
-
-      <span>|</span>
-      <span>SKU: 1234567890</span>
+      <span>{{product.sku}}</span>
     </div>
 
     <h1 class="text-3xl">
@@ -16,7 +10,7 @@
     </h1>
     <div class="divider"></div>
 
-    @if (product.discount) {
+    @if (product.discount_percent) {
     <div class="flex items-baseline gap-2">
       <h3 class="text-sm primary text-error line-through">
         {{ product.price | currency:'USD':'symbol':'1.2-2':'en-US' }}
@@ -47,21 +41,19 @@
           <i-lucide [img]="plusIcon" />
         </button>
       </div>
-      <button class="btn btn-secondary">Add to cart</button>
+      <button class="btn btn-secondary" (click)="addToCart()">
+        Add to cart
+      </button>
     </div>
 
     <div class="flex gap-4">
-      <button class="btn btn-ghost btn-accent">
+      <button class="btn btn-ghost btn-accent" disabled>
         Add to favorites
         <i-lucide [img]="heartIcon" />
       </button>
-      <button class="btn btn-ghost btn-accent">
-        Share
-        <i-lucide [img]="shareIcon" />
-      </button>
     </div>
 
-    <app-rating [rate]="product.averageRate" />
+    <app-rating [rate]="4" />
 
     <div class="hidden lg:block">
       <app-comments />
@@ -71,7 +63,7 @@
   <!-- Left Column -->
   <div class="w-full md:w-1/2 p-6">
     <img
-      [src]="product.image"
+      [src]="productImageUrl"
       class="w-full object-cover rounded-xl"
       [alt]="product.name"
       #productImage

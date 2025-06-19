@@ -1,7 +1,26 @@
-import { Bundle } from '../../interfaces/bundle';
 import { products } from './products';
 
-export const bundles: Bundle[] = [
+import { SafeUrl } from '@angular/platform-browser';
+import { FeaturedProduct } from '../../interfaces/product';
+
+interface ProductQuantity {
+  product: FeaturedProduct;
+  quantity: number;
+}
+export interface BundleMock {
+  id: string;
+  name: string;
+  description: string;
+  image: SafeUrl;
+  price: number;
+  discount?: number;
+  averageRate: number;
+  categories: string[];
+  tags: string[];
+  products: ProductQuantity[];
+}
+
+export const bundles: BundleMock[] = [
   {
     id: '0',
     name: 'Munro Honey Pack',

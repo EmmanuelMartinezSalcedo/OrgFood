@@ -1,8 +1,9 @@
 import { Component, input, InputSignal } from '@angular/core';
-import { FeaturedProduct } from '../../../interfaces/product';
 import { Rating } from '../../common/rating/rating';
 import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { ProductDto } from '../../../services/product-service';
+import { ProductService } from '../../../services/product-service';
 
 @Component({
   selector: 'app-featured-product-card',
@@ -11,17 +12,21 @@ import { Router } from '@angular/router';
   styleUrl: './featured-product-card.css',
 })
 export class FeaturedProductCard {
-  product: InputSignal<FeaturedProduct> = input.required<FeaturedProduct>();
+  product: InputSignal<ProductDto> = input.required<ProductDto>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private productService: ProductService) {}
   get discountedPrice(): number {
     return (
       this.product().price -
-      (this.product().price * this.product().discount!) / 100
+      (this.product().price * this.product().discount_percent!) / 100
     );
   }
 
   goToProduct() {
     this.router.navigate(['/product', this.product().id]);
+  }
+
+  get imageUrl(): string {
+    return this.productService.getProductImageUrl(this.product().id);
   }
 }

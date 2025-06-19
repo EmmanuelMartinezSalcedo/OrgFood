@@ -1,29 +1,23 @@
 <div class="flex items-center justify-center min-h-screen">
-  <ul class="list bg-base-100 rounded-box shadow-md p-4 w-full">
-    @for (address of me.addresses; track address) { @if (address.orders !=
-    undefined) {
+  <ul class="list bg-base-100 rounded-box shadow-md p-4 w-full max-w-3xl">
+    @for (entry of groupOrdersByAddress().entries(); track entry[0]) {
     <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
-      Orders from {{ address | address }}
+      Orders from {{ entry[0] }}
     </li>
-    @for (order of address.orders; track order) {
+
+    @for (order of entry[1]; track order.id) {
     <li
       class="list-row flex flex-col md:flex-row md:items-start gap-2 md:gap-4"
     >
-      <!-- Información de la orden -->
       <div class="flex-1">
         <div>{{ order.delivery | date: 'MM/dd/yyyy' }}</div>
-        @for (row of order.rows; track row) {
+        @for (row of order.order_rows; track row.id) {
         <div class="text-xs uppercase font-semibold opacity-60">
-          {{ row.product.name }}
+          {{ row.product.name }} × {{ row.quantity }}
         </div>
         }
       </div>
-
-      <!-- Botón alineado a la derecha y abajo -->
-      <div class="md:ml-auto md:self-end w-full md:w-fit">
-        <button class="btn btn-accent w-full md:w-fit">More</button>
-      </div>
     </li>
-    } } }
+    } }
   </ul>
 </div>
